@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pasar Nusantara – Belajar Kegiatan Ekonomi</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff6e3;--ink:#1d2350;--card:#fff;--line:#e8d9b5;--red:#d93a2b;--yel:#f2b705;--grn:#2f9e5b;--blu:#23306b;--mut:#5b6190;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#141838;--ink:#f6efdc;--card:#212760;--line:#38407f;--mut:#b4b9e6}}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:500 18px/1.55 Nunito,system-ui,sans-serif}
+h1,h2,h3{font-family:'Baloo 2',Nunito,sans-serif;line-height:1.15;margin:0}
+main{max-width:860px;margin:0 auto;padding:16px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.top h1{font-size:2rem;font-weight:800;cursor:pointer}
+.pt{background:var(--yel);color:#2b2100;font-weight:700;border-radius:999px;padding:6px 16px}
+.sub{color:var(--mut);margin:4px 0 18px}
+.street{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:18px}
+.stall{border:0;background:var(--card);color:var(--ink);text-align:left;font:inherit;cursor:pointer;border-radius:6px 6px 14px 14px;padding:0 14px 14px;box-shadow:0 2px 0 var(--line);overflow:hidden}
+.stall .aw{height:26px;margin:0 -14px 10px;background:repeating-linear-gradient(90deg,var(--c) 0 22px,#fff 22px 44px);border-radius:0 0 50% 50%/0 0 14px 14px}
+.stall .ic{font-size:2.4rem}.stall h3{font-size:1.15rem}.stall small{color:var(--mut)}
+.stall:hover{transform:translateY(-2px)}
+button{font:inherit}
+.btn{background:var(--blu);color:#fff;border:0;border-radius:12px;padding:10px 20px;font-weight:700;cursor:pointer;min-height:44px}
+.btn.alt{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.btn.go{background:var(--grn)}
+:focus-visible{outline:3px solid var(--yel);outline-offset:2px}
+.panel{background:var(--card);border-radius:16px;padding:18px;margin:14px 0;border:2px solid var(--line)}
+.panel .big{font-size:3rem}
+.bar{height:10px;background:var(--line);border-radius:9px;overflow:hidden;margin:8px 0 14px}.bar i{display:block;height:100%;background:var(--grn)}
+.q{font-family:'Baloo 2',sans-serif;font-weight:600;font-size:1.45rem;line-height:1.3}
+.opts{display:grid;gap:10px;margin:14px 0}
+.opt{background:var(--bg);color:var(--ink);border:2px solid var(--line);border-radius:12px;padding:12px 16px;text-align:left;cursor:pointer;min-height:48px;font-weight:700}
+.opts.row{grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}
+.opt.ok{background:var(--grn);color:#fff;border-color:var(--grn)}.opt.no{background:var(--red);color:#fff;border-color:var(--red)}
+.fb{min-height:1.6em;font-weight:700}
+.chain{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;min-height:48px}
+.chain span{background:var(--grn);color:#fff;border-radius:10px;padding:6px 12px;font-weight:700}
+.shake{animation:sh .3s}@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+@media (prefers-reduced-motion:reduce){.shake{animation:none}.stall:hover{transform:none}}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{border:2px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:8px 16px;font-weight:700;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--yel);color:#2b2100;border-color:var(--yel)}
+.stars{font-size:2.2rem;letter-spacing:4px}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+const $=s=>document.querySelector(s),sh=a=>[...a].sort(()=>Math.random()-.5),rp=n=>'Rp'+n.toLocaleString('id-ID');
+let pts=0,stars={},cur=null,sikap=new Set();
+const JT=['Produksi','Distribusi','Konsumsi'],LG=['Pesisir','Pedesaan','Perkotaan','Hutan'],BJ=['Bijaksana','Tidak bijaksana'],YB=['Ya','Bukan'];
+const M=[
+{t:'Kegiatan Ekonomi di Sekitar Kita',ic:'🧺',c:'#d93a2b',mat:'Setiap hari orang bekerja, menjual, dan membeli. Petani menjual sayur, penjahit membuat baju, sopir mengantar penumpang. Semua itu mendapat penghasilan dan membantu kebutuhan hidup. <b>Mengobrol, tidur, atau bermain</b> bukan kegiatan ekonomi.',ins:'Amati gambar dan kalimat. Apakah ini kegiatan ekonomi?',o:YB,
+ qs:[['🧑‍🌾 Petani menjual sayur di pasar',0],['🛌 Tidur siang di rumah',1],['🧵 Penjahit membuat seragam sekolah',0],['⚽ Bermain bola di lapangan',1],['🚌 Sopir angkot mengantar penumpang dan dibayar',0],['📚 Membaca buku di perpustakaan',1]]},
+{t:'Pengertian Kegiatan Ekonomi',ic:'📖',c:'#f2b705',mat:'<b>Kegiatan ekonomi</b> adalah kegiatan manusia untuk memenuhi kebutuhan hidup. Kebutuhan pokok kita: makanan, pakaian, dan tempat tinggal. Kita tidak bisa membuat semuanya sendiri, jadi kita bekerja sama dan saling membeli.',ins:'Pilih jawaban yang paling tepat.',
+ qs:[['Kegiatan ekonomi adalah kegiatan manusia untuk …','memenuhi kebutuhan hidup','mengisi waktu luang','mengurangi pekerjaan'],['Contoh kebutuhan pokok adalah …','makanan, pakaian, dan tempat tinggal','mainan baru','ponsel terbaru'],['Mengapa kita perlu saling membeli barang?','Kita tidak bisa membuat semua kebutuhan sendiri','Agar sekolah libur','Agar uang habis'],['Pak Budi membuka warung agar kebutuhan keluarga terpenuhi. Ini disebut …','kegiatan ekonomi','kegiatan hiburan','kegiatan olahraga']]},
+{t:'Produksi, Distribusi, Konsumsi',ic:'🏭',c:'#2f9e5b',mat:'<b>Produksi</b>: membuat atau menghasilkan barang dan jasa. <b>Distribusi</b>: menyalurkan barang dari produsen ke konsumen. <b>Konsumsi</b>: menggunakan barang dan jasa. Contoh: ibu membuat roti (produksi), truk mengantar ke toko (distribusi), Dina memakan roti (konsumsi).',ins:'Masukkan kegiatan ke kelompok yang tepat.',o:JT,
+ qs:[['🍞 Ibu membuat roti',0],['🚚 Truk mengantar roti ke toko',1],['😋 Dina membeli dan memakan roti',2],['🏭 Pabrik membuat sepatu',0],['🛍️ Pedagang menjual kaus di pasar',1],['💡 Keluarga memakai listrik di rumah',2],['👩‍🌾 Petani menanam jagung',0]]},
+{t:'Pekerjaan Masyarakat',ic:'👷',c:'#23306b',mat:'Pekerjaan orang berbeda-beda sesuai tempat tinggalnya. Di <b>pesisir</b> ada nelayan dan petani garam. Di <b>pedesaan</b> ada petani dan peternak. Di <b>perkotaan</b> ada pegawai kantor dan masinis. Di <b>hutan</b> ada pencari madu dan pengrajin rotan.',ins:'Di lingkungan mana pekerjaan ini paling sering ditemukan?',o:LG,
+ qs:[['🎣 Nelayan',0],['🧂 Petani garam',0],['🌾 Petani padi',1],['🐄 Peternak sapi',1],['🏢 Pegawai kantor',2],['🚇 Masinis kereta',2],['🍯 Pencari madu hutan',3],['🪵 Pengrajin rotan',3]]},
+{t:'Warung Jual Beli',ic:'🛒',c:'#d93a2b',mat:'<b>Penjual</b> menawarkan barang atau jasa. <b>Pembeli</b> membayar dengan alat pembayaran seperti uang rupiah atau QRIS. <b>Barang</b> bisa disentuh (beras, buku). <b>Jasa</b> berupa pekerjaan (potong rambut, antar paket). Kejujuran penting saat menghitung uang kembalian!',ins:'Jadilah penjual yang jujur dan teliti.',
+ qs:[['Orang yang menjual barang disebut …','penjual','pembeli','pengantar'],['Pak Ali memotong rambut pelanggan. Ini termasuk …','jasa','barang','alat pembayaran'],['Beras yang dijual di toko termasuk …','barang','jasa','pembeli'],['Alat pembayaran resmi di Indonesia adalah …','rupiah','kerang','kancing'],['Menukar barang dengan barang tanpa uang disebut …','barter','QRIS','utang']],money:3},
+{t:'Menjaga Sumber Daya Alam',ic:'🌳',c:'#2f9e5b',mat:'Air, tanah, hutan, laut, dan tambang adalah <b>sumber daya alam</b>. Kita memakainya untuk bertani, menangkap ikan, dan membuat barang. Pakailah dengan <b>bijaksana</b> agar tidak habis dan tidak rusak, supaya anak cucu masih bisa memakainya.',ins:'Apakah tindakan ini bijaksana?',o:BJ,
+ qs:[['🌳 Menebang pohon lalu menanam bibit baru',0],['🔥 Membakar hutan untuk membuka lahan',1],['💧 Menghemat air saat mencuci',0],['🗑️ Membuang limbah pabrik ke sungai',1],['♻️ Mengubah botol bekas menjadi kerajinan',0],['🐟 Menangkap ikan dengan bom',1]]},
+{t:'Rantai Produksi–Konsumsi',ic:'🔗',c:'#f2b705',mat:'Produksi, distribusi, dan konsumsi saling berhubungan seperti rantai. Petani memproduksi padi, pedagang mendistribusikan beras, keluarga mengonsumsi nasi. Jika satu bagian berhenti, bagian lain ikut terganggu.',ins:'Analisis hubungan ketiganya.',
+ ord:[['Dari sawah ke piring',['🌾 Petani menanam padi','⚙️ Padi digiling menjadi beras','🚚 Beras dikirim ke pasar','🍚 Keluarga membeli dan memasak nasi']],['Dari laut ke meja makan',['🎣 Nelayan menangkap ikan','🧊 Ikan dikemas dengan es','🛵 Pedagang mengantar ke warung','🍽️ Pembeli makan ikan goreng']]],
+ qs:[['Jika petani gagal panen, apa yang terjadi?','Beras di pasar berkurang dan sulit dibeli','Beras jadi melimpah','Tidak ada pengaruh apa pun'],['Banyak orang membeli roti. Apa dampaknya bagi produsen?','Produsen membuat lebih banyak roti','Produsen berhenti bekerja','Roti tidak perlu diantar']]},
+{t:'Manfaat Kegiatan Ekonomi',ic:'🤝',c:'#23306b',mat:'Kegiatan ekonomi menyediakan barang dan jasa yang kita butuhkan, membuka lapangan kerja, dan memberi penghasilan. Saat masyarakat bekerja sama dan jujur, kebutuhan semua orang lebih mudah terpenuhi.',ins:'Pilih manfaat yang benar.',
+ qs:[['Kegiatan ekonomi bermanfaat karena …','menyediakan barang dan jasa yang dibutuhkan','membuat orang menganggur','menghentikan pekerjaan'],['Pasar membuka lapangan kerja bagi …','pedagang, tukang parkir, dan pengangkut barang','tidak ada orang','hanya satu orang'],['Penghasilan dari bekerja dipakai untuk …','memenuhi kebutuhan keluarga','menghilangkan kebutuhan','menutup warung'],['Jika masyarakat saling bekerja sama, kebutuhan menjadi …','lebih mudah terpenuhi','makin sulit dicari','tidak penting']]}
+];
+const logo=()=>`<div class="top"><h1 onclick="home()" tabindex="0" role="link" onkeydown="if(event.key=='Enter')home()">🏮 Pasar Nusantara</h1><div class="pt" aria-live="polite">⭐ ${pts} poin</div></div>`;
+function home(){
+ const d=Object.keys(stars).length;
+ $('#app').innerHTML=logo()+`<p class="sub">IPAS Kelas V · Kunjungi 8 kios untuk belajar kegiatan ekonomi, kumpulkan poin, lalu jadi Juragan Pasar!</p>
+ <div class="street">${M.map((m,i)=>`<button class="stall" style="--c:${m.c}" onclick="openM(${i})"><div class="aw"></div><div class="ic">${m.ic}</div><h3>${m.t}</h3><small>${stars[i]?'★'.repeat(stars[i])+'☆'.repeat(3-stars[i]):'Belum dimainkan'}</small></button>`).join('')}</div>
+ <div class="panel"><h2>🏆 Kuis Juragan Pasar</h2><p>Selesaikan 8 kios (${d}/8), lalu uji dirimu dengan 8 soal campuran.</p><button class="btn go" onclick="startFinal()">Mulai Kuis Akhir</button></div>`;
+ scrollTo(0,0)}
+function openM(i){const m=M[i];$('#app').innerHTML=logo()+`<div class="panel"><div class="big">${m.ic}</div><h2>${m.t}</h2><p>${m.mat}</p><p class="sub">💬 Diskusikan dengan temanmu: contoh apa yang kamu lihat di sekitar rumah?</p><button class="btn go" onclick="start(${i})">Mulai Tantangan</button> <button class="btn alt" onclick="home()">Kembali</button></div>`;scrollTo(0,0)}
+function norm(m){
+ let t=m.qs.map(q=>m.o?{k:'p',q:q[0],o:m.o,a:q[1],fx:1,ins:m.ins}:{k:'p',q:q[0],o:sh(q.slice(1)),a:0,ins:m.ins});
+ t.forEach(x=>{if(!x.fx)x.a=x.o.indexOf(m.qs.find(q=>q[0]==x.q)[1])});
+ (m.ord||[]).forEach(r=>t.push({k:'o',ti:r[0],s:r[1]}));
+ for(let i=0;i<(m.money||0);i++){const I=[['🥤 Es teh',3000],['🍞 Roti',2000],['🍟 Gorengan',1000],['✏️ Pensil',2500],['📒 Buku',5000]],x=sh(I).slice(0,2),tot=x[0][1]+x[1][1],pay=tot<=5000?5000:10000,ch=pay-tot;
+  const o=[...new Set([ch,ch+500,Math.max(500,ch-1000),ch+1000])].map(rp);t.push({k:'p',q:`Kamu penjual. Pembeli membeli ${x[0][0]} (${rp(x[0][1])}) dan ${x[1][0]} (${rp(x[1][1])}), membayar ${rp(pay)}. Berapa uang kembaliannya?`,o:sh(o),a:0,ins:'Simulasi kasir',m:rp(ch)});t[t.length-1].a=t[t.length-1].o.indexOf(rp(ch))}
+ return t}
+function start(i){cur={i,t:norm(M[i]),n:0,ok:0,tot:0};step()}
+function startFinal(){let t=[];M.forEach(m=>{const p=norm(m).filter(x=>x.k=='p'&&!x.m);t.push(sh(p)[0])});cur={i:-1,t,n:0,ok:0,tot:0};step()}
+function step(){
+ const x=cur.t[cur.n];if(!x)return result();
+ const pr=`<div class="bar"><i style="width:${cur.n/cur.t.length*100}%"></i></div>`,hd=logo()+`<div class="panel"><small>${cur.i<0?'Kuis Juragan Pasar':M[cur.i].t} · ${cur.n+1}/${cur.t.length}</small>${pr}`;
+ if(x.k=='p'){$('#app').innerHTML=hd+`<p class="sub">${x.ins||''}</p><div class="q">${x.q}</div><div class="opts ${x.o.length<=4&&x.o[0].length<14?'row':''}" id="op">${x.o.map((t,j)=>`<button class="opt" onclick="pick(${j})">${t}</button>`).join('')}</div><div class="fb" id="fb" aria-live="polite"></div><div id="nx"></div></div>`}
+ else{x.q=sh(x.s.map((t,j)=>[t,j]));x.e=0;x.er=0;$('#app').innerHTML=hd+`<div class="q">🔗 ${x.ti}</div><p class="sub">Ketuk langkah-langkahnya sesuai urutan yang benar, dari awal sampai akhir.</p><div class="chain" id="ch"></div><div class="opts" id="op">${x.q.map(([t,j])=>`<button class="opt" data-j="${j}" onclick="ord(this,${j})">${t}</button>`).join('')}</div><div class="fb" id="fb" aria-live="polite"></div><div id="nx"></div></div>`}}
+const nxt=()=>`<button class="btn" onclick="cur.n++;step()">Lanjut</button>`;
+function pick(j){const x=cur.t[cur.n],b=[...document.querySelectorAll('#op .opt')];b.forEach(e=>e.disabled=true);cur.tot++;
+ if(j==x.a){pts+=10;cur.ok++;b[j].classList.add('ok');$('#fb').textContent='✅ Benar! +10 poin'}else{b[j].classList.add('no');b[x.a].classList.add('ok');$('#fb').textContent='❌ Belum tepat. Jawaban benar: '+x.o[x.a]}
+ $('.pt').textContent='⭐ '+pts+' poin';$('#nx').innerHTML=nxt()}
+function ord(el,j){const x=cur.t[cur.n];
+ if(j==x.e){pts+=5;el.disabled=true;el.style.display='none';$('#ch').innerHTML+=`<span>${x.s[j]}</span>`;x.e++;$('#fb').textContent='👍 Tepat!';
+  if(x.e==x.s.length){cur.tot++;if(!x.er)cur.ok++;$('#fb').textContent='🎉 Rantai lengkap! Setiap bagian saling bergantung.';$('#nx').innerHTML=nxt()}}
+ else{x.er++;el.classList.add('shake');setTimeout(()=>el.classList.remove('shake'),300);$('#fb').textContent='🤔 Belum urutan ini. Coba pikirkan langkah pertama dulu.'}
+ $('.pt').textContent='⭐ '+pts+' poin'}
+function result(){
+ const p=cur.ok/cur.tot,s=p>=.85?3:p>=.6?2:1;
+ if(cur.i<0){const b=p>=.85?['👑','Juragan Pasar']:p>=.6?['🥈','Pedagang Cerdas']:['🌱','Pedagang Baru'];
+  $('#app').innerHTML=logo()+`<div class="panel"><div class="big">${b[0]}</div><h2>${b[1]}</h2><p>Benar ${cur.ok} dari ${cur.tot} soal. Total ${pts} poin.</p><h3>Sikap apa yang sudah kamu tunjukkan hari ini?</h3><div class="chips">${['🤝 Kerja sama','📋 Tanggung jawab','💎 Jujur','🏅 Sportif'].map(t=>`<button class="chip" aria-pressed="false" onclick="this.setAttribute('aria-pressed',this.getAttribute('aria-pressed')=='false')">${t}</button>`).join('')}</div><p class="sub">Ceritakan ke gurumu satu contoh sikap yang kamu pilih.</p><button class="btn" onclick="startFinal()">Main Lagi</button> <button class="btn alt" onclick="home()">Ke Pasar</button></div>`;return}
+ stars[cur.i]=Math.max(stars[cur.i]||0,s);
+ $('#app').innerHTML=logo()+`<div class="panel"><div class="stars" role="img" aria-label="${s} bintang">${'★'.repeat(s)+'☆'.repeat(3-s)}</div><h2>${s==3?'Hebat sekali!':s==2?'Bagus!':'Ayo coba lagi!'}</h2><p>Benar ${cur.ok} dari ${cur.tot}. ${s<3?'Baca lagi materinya, lalu ulangi untuk bintang penuh.':'Kamu menguasai kios ini.'}</p><button class="btn" onclick="start(${cur.i})">Ulangi</button> <button class="btn alt" onclick="openM(${cur.i})">Baca Materi</button> <button class="btn go" onclick="home()">Kios Lain</button></div>`}
+home();
+</script>
+</body>
+</html>
